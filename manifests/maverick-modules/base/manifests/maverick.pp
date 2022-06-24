@@ -44,7 +44,7 @@ class base::maverick (
 
     # Pull maverick into it's final resting place
     oncevcsrepo { "git-maverick":
-        gitsource   => "https://github.com/goodrobots/maverick.git",
+        gitsource   => "https://github.com/PYBrulin/maverick.git",
         dest        => "/srv/maverick/software/maverick",
         revision    => $_gitbranch,
     } ->
@@ -131,7 +131,7 @@ class base::maverick (
 
     # Migrate old fnoop origin to goodrobots
     exec { "mavfnoop-to-mavgoodrobots":
-        command => "/usr/bin/git remote set-url origin https://github.com/goodrobots/maverick.git",
+        command => "/usr/bin/git remote set-url origin https://github.com/PYBrulin/maverick.git",
         onlyif  => "/usr/bin/git remote -v |grep fnoop",
     }
 
