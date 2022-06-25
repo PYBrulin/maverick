@@ -4,6 +4,9 @@
 import os,re,subprocess
 
 # Define main data container
+url = subprocess.getoutput("/usr/bin/git remote get-url --push origin")
+print("giturl=" + str(url) + ".git")
+
 branch = subprocess.getoutput("/usr/bin/git branch |/bin/grep '\*'")
 branch = re.sub("\* ", "", branch.strip())
 print("gitbranch=" + str(branch))

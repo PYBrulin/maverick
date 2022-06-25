@@ -12,6 +12,7 @@
 #   Whether to use credentials cache.  Unless using a shared machine set to true, to stop having to re-enter git credentials every push.
 #
 class base::maverick (
+    String $maverick_url = "https://github.com/goodrobots/maverick.git",
     String $maverick_branch = "stable",
     Boolean $git_credentials_cache = true,
 ) {
@@ -25,6 +26,12 @@ class base::maverick (
     }
 
     # If the gitbranch fact is set, use that to set the branch while setting up maverick
+    if $::gitbranch {
+        $_giturl = $::giturl
+    } else {
+        $_giturl = $maverick_url
+    }
+
     if $::gitbranch {
         $_gitbranch = $::gitbranch
     } else {
@@ -44,7 +51,7 @@ class base::maverick (
 
     # Pull maverick into it's final resting place
     oncevcsrepo { "git-maverick":
-        gitsource   => "https://github.com/PYBrulin/maverick.git",
+        gitsource   => $_giturl,
         dest        => "/srv/maverick/software/maverick",
         revision    => $_gitbranch,
     } ->
