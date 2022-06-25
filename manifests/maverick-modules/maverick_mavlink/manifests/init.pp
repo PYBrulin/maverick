@@ -202,7 +202,7 @@ class maverick_mavlink (
                 require     => Package["ninja-build"],
             } ->
             exec { "mavlink-router-ninja-install":
-                command     => "/usr/bin/ninja -C build install DESTDIR=/srv/maverick/software/mavlink-router >/srv/maverick/var/log/build/mavlink-router.install.out 2>&1",
+                command     => "DESTDIR=/srv/maverick/software/mavlink-router /usr/bin/ninja -C build install >/srv/maverick/var/log/build/mavlink-router.install.out 2>&1",
                 cwd         => "/srv/maverick/var/build/mavlink-router",
                 timeout     => 0,
                 user        => "mav",
