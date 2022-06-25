@@ -149,6 +149,11 @@ class base::python (
         pkgname     => "pexpect",
         ensure      => present,
         timeout     => 0,
+    } ->
+    install_python_module { 'pip-requests':
+        pkgname     => 'requests',
+        ensure      => present,
+        timeout     => 0,
     }
 
     # Install PyRIC and netifaces, python modules necessary to run maverick --netinfo
