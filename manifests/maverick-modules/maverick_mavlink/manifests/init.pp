@@ -175,7 +175,7 @@ class maverick_mavlink (
     # Install mavlink-router from gitsource
     if $mavlink_router_install {
         if ! ("install_flag_mavlink-router" in $installflags) {
-            ensure_packages(["autoconf"])
+            ensure_packages(["autoconf", "meson", "ninja-build", "pkg-config", "gcc", "g++"])
             oncevcsrepo { "git-mavlink-router":
                 gitsource   => $mavlink_router_source,
                 dest        => "/srv/maverick/var/build/mavlink-router",
@@ -206,7 +206,7 @@ class maverick_mavlink (
                 cwd         => "/srv/maverick/var/build/mavlink-router",
                 timeout     => 0,
                 user        => "mav",
-                creates     => "/srv/maverick/software/mavlink-router/bin/mavlink-routerd",
+                creates     => "/srv/maverick/software/mavlink-router/usr/bin/mavlink-routerd",
             } ->
             file { "/srv/maverick/var/build/.install_flag_mavlink-router":
                 ensure      => file,
