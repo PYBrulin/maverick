@@ -181,12 +181,12 @@ class maverick_mavlink (
                 dest        => "/srv/maverick/var/build/mavlink-router",
                 submodules  => true,
             } ->
-            install_python_module { "meson":
+            install_python_module { "pip-meson":
                 pkgname => "meson",
                 ensure  => present,
             } ->
             exec { "mavlink-router-meson":
-                command     => "/srv/maverick/software/python/bin/meson --prefix=/srv/maverick/software/mavlink-router --libdir=/srv/maverick/software/mavlink-router build >/srv/maverick/var/log/build/mavlink-router.configure.log 2>&1",
+                command     => "/srv/maverick/software/python/bin/meson --prefix=/srv/maverick/software/mavlink-router --libdir=/srv/maverick/software/mavlink-router -Dsystemdsystemunitdir=/etc/systemd/system build >/srv/maverick/var/log/build/mavlink-router.configure.log 2>&1",
                 cwd         => "/srv/maverick/var/build/mavlink-router",
                 timeout     => 0,
                 user        => "mav",
@@ -201,8 +201,23 @@ class maverick_mavlink (
                 #creates     => "/srv/maverick/var/build/mavlink-router/build",
                 require     => Package["ninja-build"],
             } ->
-            exec { "mavlink-router-ninja-install":
-                command     => "DESTDIR=/srv/maverick/software/mavlink-router /usr/bin/ninja -C build install >/srv/maverick/var/log/build/mavlink-router.install.out 2>&1",
+            file{ "/srv/maverick/software/mavlink-router":
+                ensure      => directory,
+                owner       => "mav",
+                group       => "mav",
+            } ->
+            file{ "/srv/maverick/software/mavlink-router/usr":
+                ensure      => directory,
+                owner       => "mav",
+                group       => "mav",
+            } ->
+            file{ "/srv/maverick/software/mavlink-router/usr/bin":
+                ensure      => directory,
+                owner       => "mav",
+                group       => "mav",
+            } ->
+            exec { "mavlink-router-copy-install":
+                command     => "/bin/cp /srv/maverick/var/build/mavlink-router/build/src/mavlink-routerd /srv/maverick/software/mavlink-router/usr/bin/mavlink-routerd >/srv/maverick/var/log/build/mavlink-router.install.out 2>&1",
                 cwd         => "/srv/maverick/var/build/mavlink-router",
                 timeout     => 0,
                 user        => "mav",
@@ -427,3 +442,4 @@ class maverick_mavlink (
     }
     
 }
+
