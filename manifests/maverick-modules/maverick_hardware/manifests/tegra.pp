@@ -137,7 +137,6 @@ class maverick_hardware::tegra (
     if $tegra_model == "Jetson Xavier NX" {
         exec { "disable nvgetty":
             command     => "/bin/systemctl stop nvgetty; sleep 10; /bin/systemctl disable nvgetty;",
-            creates     => "/var/lib/zerotier-one/authtoken.secret",
         } ->
         file { "/etc/systemd/system/nvgetty.service":
             ensure      => absent,
