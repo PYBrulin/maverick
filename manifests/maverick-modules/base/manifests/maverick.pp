@@ -138,7 +138,7 @@ class base::maverick (
 
     # Migrate old fnoop origin to goodrobots
     exec { "mavfnoop-to-mavgoodrobots":
-        command => "/usr/bin/git remote set-url origin https://github.com/PYBrulin/maverick.git",
+        command => "/usr/bin/git remote set-url origin ${_giturl}",
         onlyif  => "/usr/bin/git remote -v |grep fnoop",
     }
 
