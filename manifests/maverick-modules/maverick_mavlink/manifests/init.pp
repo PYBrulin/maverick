@@ -201,9 +201,9 @@ class maverick_mavlink (
                 #creates     => "/srv/maverick/var/build/mavlink-router/build",
                 require     => Package["ninja-build"],
             } ->
-            file{ "/srv/maverick/software/mavlink-router/bin":
+            file{ [ "/srv/maverick/software/mavlink-router",
+                    "/srv/maverick/software/mavlink-router/bin", ]:
                 ensure      => directory,
-                recurse     => true,
                 owner       => "mav",
                 group       => "mav",
             } ->
