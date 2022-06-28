@@ -136,8 +136,8 @@ class maverick_hardware::tegra (
 
     if $tegra_model == "Jetson Xavier NX" {
         # Disables the nvgetty service which occupies the UART of the J12 header for the flight controller
-        exec { "disable nvgetty":
-            command     => "/bin/systemctl stop nvgetty; sleep 10; /bin/systemctl disable nvgetty;",
+        exec { "tegra-disable-nvgetty":
+            command     => "/bin/systemctl disable nvgetty;",
             onlyif      => "/bin/systemctl is-enabled nvgetty",
         }
     }
