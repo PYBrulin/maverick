@@ -19,7 +19,7 @@ echo "Starting Maverick Mavlink provider ${PROXY_PROVIDER}"
 # Start the configured mavlink provider
 if [ $PROXY_PROVIDER == "mavlink-router" ]
 then
-    /srv/maverick/software/mavlink-router/usr/bin/mavlink-routerd -c /srv/maverick/config/mavlink/mavlink-router-$1.conf
+    /srv/maverick/software/mavlink-router/bin/mavlink-routerd -c /srv/maverick/config/mavlink/mavlink-router-$1.conf
 
 elif [ $PROXY_PROVIDER == "mavproxy" ]
 then

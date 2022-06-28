@@ -201,27 +201,18 @@ class maverick_mavlink (
                 #creates     => "/srv/maverick/var/build/mavlink-router/build",
                 require     => Package["ninja-build"],
             } ->
-            file{ "/srv/maverick/software/mavlink-router":
+            file{ "/srv/maverick/software/mavlink-router/bin":
                 ensure      => directory,
-                owner       => "mav",
-                group       => "mav",
-            } ->
-            file{ "/srv/maverick/software/mavlink-router/usr":
-                ensure      => directory,
-                owner       => "mav",
-                group       => "mav",
-            } ->
-            file{ "/srv/maverick/software/mavlink-router/usr/bin":
-                ensure      => directory,
+                recurse     => true,
                 owner       => "mav",
                 group       => "mav",
             } ->
             exec { "mavlink-router-copy-install":
-                command     => "/bin/cp /srv/maverick/var/build/mavlink-router/build/src/mavlink-routerd /srv/maverick/software/mavlink-router/usr/bin/mavlink-routerd >/srv/maverick/var/log/build/mavlink-router.install.out 2>&1",
+                command     => "/bin/cp /srv/maverick/var/build/mavlink-router/build/src/mavlink-routerd /srv/maverick/software/mavlink-router/bin/mavlink-routerd >/srv/maverick/var/log/build/mavlink-router.install.out 2>&1",
                 cwd         => "/srv/maverick/var/build/mavlink-router",
                 timeout     => 0,
                 user        => "mav",
-                creates     => "/srv/maverick/software/mavlink-router/usr/bin/mavlink-routerd",
+                creates     => "/srv/maverick/software/mavlink-router/bin/mavlink-routerd",
             } ->
             file { "/srv/maverick/var/build/.install_flag_mavlink-router":
                 ensure      => file,
